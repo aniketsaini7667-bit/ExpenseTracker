@@ -1,2 +1,2 @@
 # Expense Tracker
-A simple Python application to manage expenses.
+This is simple Python application to manage expense in a CLI version ...
