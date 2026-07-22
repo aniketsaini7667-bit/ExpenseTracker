@@ -9,7 +9,8 @@ class CLI_menu:
                           "delete expense",
                           "get expenses by category",
                           "get all expenses",
-                          "get total money spend on expenses"]
+                          "get total money spend on expenses",
+                          "get_expense_by_date"]
         pass
 
     def add_data(self):
@@ -66,6 +67,22 @@ class CLI_menu:
                 else:
                     print(f"❌ Failed to Feach Category {category} not avlible in the data")
                 break
+    def expense_by_date(self) :
+        while True:
+            date = input("enter the date in [01-01-2026] format : ").title().strip()
+            if not date:
+                continue
+            elif None :
+                pass # dont know the regex yet to use at this place 
+            else :
+                found = self.manager.get_expense_by_date(date)
+                if found :
+                   print(f"✅ Expense on {date} Here You GO!")
+                   for item in found:
+                       print(f"|| {item} ||")
+                else:
+                    print(f"❌ Failed to Feach Not any expense on this  {date}")
+                break
     def get_all_expenses(self) :
         data = self.manager.get_all_expenses()
         if not data:
@@ -83,7 +100,8 @@ class CLI_menu:
                           2 : self.delete_data,
                           3 : self.expanse_by_category,
                           4 : self.get_all_expenses,
-                          5 : self.get_total_expenses}
+                          5 : self.get_total_expenses,
+                          6 : self.expense_by_date}
 
         while True:
             print("| Welcome to Expense Tracker! 🚀 |".center(50,"$"))

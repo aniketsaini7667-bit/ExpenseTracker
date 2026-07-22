@@ -1,2 +1,5 @@
-.venv/
 __pycache__/
+#json file
+*.json
+#test file
+notrelated-testcode.py

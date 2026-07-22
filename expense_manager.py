@@ -5,10 +5,12 @@
   2.  get_all_expenses()
   3.  get_total_expenses()
   4.  delete_expense(expense_index)
-  5.  get_expenses_by_category(category_name)'''
-
+  5.  get_expenses_by_category(category_name)
+  6.  get_expense_by_date(date)'''
+  
 # progect import
 import storage
+import datetime
 
 # module import
 
@@ -19,6 +21,7 @@ class ExpenseManager:
 
     def __init__(self) -> None:
         self.expense = storage.get_data()
+        self.date = datetime.datetime.now().strftime("%d-%m-%Y At %H:%M:%S")
         pass
     
     @property
@@ -32,7 +35,8 @@ class ExpenseManager:
             return self.index
 
     def add_expense(self,amount, category, description) -> bool:
-        data = {"index": self.index_no,
+        data = {"date": self.date,
+                "index": self.index_no,
                 "Amount": amount,
                 "category" : category,
                 "description" : description}
@@ -63,6 +67,13 @@ class ExpenseManager:
         else: 
             found_category = [items for items in self.expense if items["category"] == category_name]
             return found_category
+        
+    def get_expense_by_date(self,date) -> list:
+        if not self.expense:
+            return []
+        else :
+            found = [item for item in self.expense if item['date'][0:10]==date]
+            return found
 
         
 
