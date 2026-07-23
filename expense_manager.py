@@ -21,8 +21,11 @@ class ExpenseManager:
 
     def __init__(self) -> None:
         self.expense = storage.get_data()
-        self.date = datetime.datetime.now().strftime("%d-%m-%Y At %H:%M:%S")
         pass
+
+    def get_date(self) -> str :
+        self.date = datetime.datetime.now().strftime("%d-%m-%Y At %H:%M:%S")
+        return self.date
     
     @property
     def index_no(self) -> int:
@@ -35,7 +38,7 @@ class ExpenseManager:
             return self.index
 
     def add_expense(self,amount, category, description) -> bool:
-        data = {"date": self.date,
+        data = {"date": self.get_date(),
                 "index": self.index_no,
                 "Amount": amount,
                 "category" : category,

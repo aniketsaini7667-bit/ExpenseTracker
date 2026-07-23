@@ -7,7 +7,7 @@
 import json
 from pathlib import Path
 
-path = Path("expanse_tracker_DB.json")
+path = Path("expense_tracker_DB.json")
 
 def get_data() -> list: 
     if path.exists():
