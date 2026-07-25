@@ -14,9 +14,9 @@ class CLI_menu:
                           "get_expense_by_date"]
         pass
 
-    def user_input(self,prompt: str) -> str:
+    def user_input(self,prompt: str,prefix="") -> str:
         while True:
-            full_prompt = f"{prompt} (or type cancel to go back) : ".title()
+            full_prompt = f"\n{prompt} (or type cancel to go back) : {prefix}".title()
             user_input = input(full_prompt).strip()
             if not user_input :
                 print("❌ Input cannot be empty! Please try again.")
@@ -31,7 +31,7 @@ class CLI_menu:
         if category == "cancel" :
             return
         while True :
-            amount = self.user_input("how much money did you spend on it : ₹")
+            amount = self.user_input("how much money did you spend on it : ",prefix="🤑")
             if amount == "cancel":
                 return
             elif not amount.isdigit() :
@@ -51,7 +51,7 @@ class CLI_menu:
     
     def delete_data(self):
         while True:
-            index = self.user_input('enter the the index you want to delete \nif dont know the index first see all expense for be sure : ')
+            index = self.user_input("enter the the index you want to delete \nif dont know the index first see all expense for be sure : ")
             if index == 'cancel':
                 return
             elif index.isdigit(): 
@@ -67,7 +67,7 @@ class CLI_menu:
                 continue
 
     def expanse_by_category(self) :
-        category = input("which category did you spend your money : ".title()).strip()
+        category = self.user_input("which category did you spend your money : ")
         if category == "cancel":
             return
         else:
@@ -99,7 +99,7 @@ class CLI_menu:
                 print("please enter a correct fromat of date [dd-mm-yyyy]")
             except Exception  as e:
                 print(e)
-                
+
     def get_all_expenses(self) :
         data = self.manager.get_all_expenses()
         if not data:
@@ -110,7 +110,7 @@ class CLI_menu:
 
     def get_total_expenses(self) :
         amount = self.manager.get_total_expenses()
-        print(f"this is the total amount {amount} you spent till now!!🤯")
+        print(f"this is the total ₹{amount} you spent till now!!🤯")
 
     def start_app(self) :
         self.menu_dict = {1 : self.add_data,
@@ -119,26 +119,29 @@ class CLI_menu:
                           4 : self.get_all_expenses,
                           5 : self.get_total_expenses,
                           6 : self.expense_by_date}
-
+        UIlen = len(max(self.menu_item,key=len))+10
         while True:
-            print("| Welcome to Expense Tracker! 🚀 |".center(50,"$"))
+            print("₹".center(60,"₹"))
+            print("   |||    Welcome to Expense Tracker! 🚀   |||     ".center(60,"₹"))
+            print("₹".center(60,"₹"))
+            print("="*UIlen)
             for index,item in enumerate(self.menu_item):
-                print(f"| {index} : {item} |")
-        
+                print(f"|  {index} : {item}  ".ljust(UIlen-1)+"|")
+            print("="*UIlen,end="\n\n")
             options = input("Enter from the following option : ".title()).strip()
             if options.isdigit():
                 options = int(options)
                 if options == 0:
-                    print("Goodbye! 👋")
+                    print("\nGoodbye! 👋\n")
                     break
                 elif options < len(self.menu_item) :
                     go = self.menu_dict[options]
                     go()
                     continue
                 else :
-                    print("Invalid choice, please try again.")
+                    print("\nInvalid choice, please try again.")
                     continue
             else :
-                print(f"Please inter a valide option from the choise not {options} !!!")
+                print(f"\nPlease inter a valide option from the choise not {options} !!!")
 
 
