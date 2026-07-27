@@ -82,10 +82,10 @@ class ExpenseManager:
     def get_total_expense_by_category(self,category_name) -> list:
         amount_list = self.get_expenses_by_category(category_name)
         if not amount_list:
-            return [category_name]
+            return 0,category_name
         else :
             amount = [item["Amount"] for item in amount_list]
-            return [sum(amount),category_name]
+            return sum(amount),category_name
 
 
 

@@ -36,7 +36,7 @@ class CLI_menu:
             if amount == "cancel":
                 return
             elif not amount.isdigit() :
-                print("Please inter a valid amount ")
+                print("Please Enter a valid amount ")
                 continue
             else :
                 amount = int(amount)
@@ -67,7 +67,7 @@ class CLI_menu:
                 print("Please Inter A Valid Index")
                 continue
 
-    def expanse_by_category(self) :
+    def expense_by_category(self) :
         category = self.user_input("which category did spends do you want find out : ")
         if category == "cancel":
             return
@@ -78,7 +78,7 @@ class CLI_menu:
                 for item in success:
                     print(f"|| {item} ||")
             else:
-                print(f"❌ Failed to Feach Category {category} not avlible in the data")
+                print(f"❌ Failed to Fetch Category {category} not Available in the data")
 
     def expense_by_date(self) :
         format_rule = "%d-%m-%Y"
@@ -104,7 +104,7 @@ class CLI_menu:
     def get_all_expenses(self) :
         data = self.manager.get_all_expenses()
         if not data:
-            print("NO DATA Avlible ##")
+            print("NO DATA Available ##")
         else:
             print(f"\n✅ All Expense Here You GO!\n")
             for item in data :
@@ -119,17 +119,17 @@ class CLI_menu:
         if category == "cancel":
             return
         else :
-            amount = self.manager.get_total_expense_by_category(category)
-            if len(amount)==1:
-                print(f"\n this {amount[1]} category has not been created yet !!❌")
+            amount,cat_name = self.manager.get_total_expense_by_category(category)
+            if amount == 0:
+                print(f"\n this {cat_name} category has not been created yet !!❌")
             else :
-                print(f"\nthe total ₹{amount[0]} till now you spent this category : {amount[1]}!!🤯")
+                print(f"\nthe total ₹{amount} till now you spent this category : {cat_name}!!🤯")
 
 
     def start_app(self) :
         self.menu_dict = {1 : self.add_data,
                           2 : self.delete_data,
-                          3 : self.expanse_by_category,
+                          3 : self.expense_by_category,
                           4 : self.get_all_expenses,
                           5 : self.get_total_expenses,
                           6 : self.expense_by_date,
@@ -158,6 +158,6 @@ class CLI_menu:
                     print("\nInvalid choice, please try again.")
                     continue
             else :
-                print(f"\nPlease Enter a valide option from the choise not {options} !!!")
+                print(f"\nPlease Enter a valid option from the choice not {options} !!!")
 
 
