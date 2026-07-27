@@ -11,7 +11,8 @@ class CLI_menu:
                           "get expenses by category",
                           "get all expenses",
                           "get total money spend on expenses",
-                          "get_expense_by_date"]
+                          "get_expense_by_date",
+                          "get_total_expense_by_category"]
         pass
 
     def user_input(self,prompt: str,prefix="") -> str:
@@ -60,20 +61,20 @@ class CLI_menu:
                 if success:
                     print(f"✅ Expense Number {index} Deleted successfully!")
                 else:
-                    print(f"❌ Failed to Delete This Index {index} not avlible in the data")
+                    print(f"❌ Failed to Delete This Index {index} not available in the data")
                 break
             else :
                 print("Please Inter A Valid Index")
                 continue
 
     def expanse_by_category(self) :
-        category = self.user_input("which category did you spend your money : ")
+        category = self.user_input("which category did spends do you want find out : ")
         if category == "cancel":
             return
         else:
             success = self.manager.get_expenses_by_category(category)
             if success:
-                print(f"✅ Expense Category {category} Here You GO!")
+                print(f"\n✅ Expense Category {category} Here You GO!\n")
                 for item in success:
                     print(f"|| {item} ||")
             else:
@@ -90,7 +91,7 @@ class CLI_menu:
                 if valditions:
                     found = self.manager.get_expense_by_date(date)
                     if found :
-                        print(f"✅ Expense on {date} Here You GO!")
+                        print(f"\n✅ Expense on {date} Here You GO!\n")
                         for item in found:
                             print(f"|| {item} ||")
                     else:
@@ -105,12 +106,25 @@ class CLI_menu:
         if not data:
             print("NO DATA Avlible ##")
         else:
+            print(f"\n✅ All Expense Here You GO!\n")
             for item in data :
                 print(f" || {item} ||")
 
     def get_total_expenses(self) :
         amount = self.manager.get_total_expenses()
-        print(f"this is the total ₹{amount} you spent till now!!🤯")
+        print(f"\nthis is the total ₹{amount} you spent till now!!🤯")
+
+    def total_expense_by_category(self):
+        category = self.user_input("which category did spends do you want find out : ")
+        if category == "cancel":
+            return
+        else :
+            amount = self.manager.get_total_expense_by_category(category)
+            if len(amount)==1:
+                print(f"\n this {amount[1]} category has not been created yet !!❌")
+            else :
+                print(f"\nthe total ₹{amount[0]} till now you spent this category : {amount[1]}!!🤯")
+
 
     def start_app(self) :
         self.menu_dict = {1 : self.add_data,
@@ -118,9 +132,11 @@ class CLI_menu:
                           3 : self.expanse_by_category,
                           4 : self.get_all_expenses,
                           5 : self.get_total_expenses,
-                          6 : self.expense_by_date}
+                          6 : self.expense_by_date,
+                          7 : self.total_expense_by_category}
         UIlen = len(max(self.menu_item,key=len))+10
         while True:
+            print("\n")
             print("₹".center(60,"₹"))
             print("   |||    Welcome to Expense Tracker! 🚀   |||     ".center(60,"₹"))
             print("₹".center(60,"₹"))
@@ -142,6 +158,6 @@ class CLI_menu:
                     print("\nInvalid choice, please try again.")
                     continue
             else :
-                print(f"\nPlease inter a valide option from the choise not {options} !!!")
+                print(f"\nPlease Enter a valide option from the choise not {options} !!!")
 
 

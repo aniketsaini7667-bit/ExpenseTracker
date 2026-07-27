@@ -6,7 +6,8 @@
   3.  get_total_expenses()
   4.  delete_expense(expense_index)
   5.  get_expenses_by_category(category_name)
-  6.  get_expense_by_date(date)'''
+  6.  get_expense_by_date(date)
+  7.  get_total_expense_by_category(category_name)'''
   
 # progect import
 import storage
@@ -56,7 +57,7 @@ class ExpenseManager:
     
     def delete_expense(self,index) -> bool:
         before = len(self.expense)
-        re_write = [expanse for expanse in self.expense if expanse["index"] != index]
+        re_write = [expense for expense in self.expense if expense["index"] != index]
         self.expense = re_write
         if before > len(re_write):
             storage.save_data(self.expense)
@@ -78,7 +79,13 @@ class ExpenseManager:
             found = [item for item in self.expense if item['date'][0:10]==date]
             return found
 
-        
+    def get_total_expense_by_category(self,category_name) -> list:
+        amount_list = self.get_expenses_by_category(category_name)
+        if not amount_list:
+            return [category_name]
+        else :
+            amount = [item["Amount"] for item in amount_list]
+            return [sum(amount),category_name]
 
 
 
