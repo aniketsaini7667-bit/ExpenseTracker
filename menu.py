@@ -27,6 +27,8 @@ class CLI_menu:
                 return "cancel"
             else :
                 return user_input
+    def UIprint(self,item) :
+        print(f"||   {item['index']}] {item['date']} | {item['category'].title()} | ₹{item['Amount']} - {item['description']}  ||")
             
     def add_data(self):
         category = self.user_input("which category did you spend your money : ").lower()
@@ -80,7 +82,7 @@ class CLI_menu:
             if success:
                 print(f"\n✅ Expense Category {category} Here You GO!\n")
                 for item in success:
-                    print(f"|| {item} ||")
+                    self.UIprint(item)
             else:
                 print(f"❌ Failed to Fetch Category {category} not Available in the data")
 
@@ -97,7 +99,7 @@ class CLI_menu:
                     if found :
                         print(f"\n✅ Expense on {date} Here You GO!\n")
                         for item in found:
-                            print(f"|| {item} ||")
+                            self.UIprint(item)
                     else:
                         print(f"❌ Failed to Fetch Not any expense on this  {date}")
             except ValueError :
@@ -112,8 +114,8 @@ class CLI_menu:
         else:
             print(f"\n✅ All Expense Here You GO!\n")
             for item in data :
-                print(f" || {item} ||")
-
+                self.UIprint(item)
+                
     def get_total_expenses(self) :
         amount = self.manager.get_total_expenses()
         print(f"\nthis is the total ₹{amount} you spent till now!!🤯")
