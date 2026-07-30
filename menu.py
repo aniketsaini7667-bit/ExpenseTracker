@@ -12,7 +12,8 @@ class CLI_menu:
                           "get all expenses",
                           "get total money spend on expenses",
                           "get_expense_by_date",
-                          "get_total_expense_by_category"]
+                          "get_total_expense_by_category",
+                          "update_expense"]
         pass
 
     def user_input(self,prompt: str,prefix="") -> str:
@@ -28,13 +29,16 @@ class CLI_menu:
                 return user_input
             
     def add_data(self):
-        category = self.user_input("which category did you spend your money : ")
+        category = self.user_input("which category did you spend your money : ").lower()
         if category == "cancel" :
             return
         while True :
             amount = self.user_input("how much money did you spend on it : ",prefix="🤑")
             if amount == "cancel":
                 return
+            elif amount < 0:
+                print("spending amount can't be zero".title())
+                continue
             elif not amount.isdigit() :
                 print("Please Enter a valid amount ")
                 continue
@@ -95,7 +99,7 @@ class CLI_menu:
                         for item in found:
                             print(f"|| {item} ||")
                     else:
-                        print(f"❌ Failed to Feach Not any expense on this  {date}")
+                        print(f"❌ Failed to Fetch Not any expense on this  {date}")
             except ValueError :
                 print("please enter a correct fromat of date [dd-mm-yyyy]")
             except Exception  as e:
@@ -125,6 +129,47 @@ class CLI_menu:
             else :
                 print(f"\nthe total ₹{amount} till now you spent this category : {cat_name}!!🤯")
 
+    def update_expense(self) :
+        while True :
+            index = self.user_input("index of expense you want to edit : ")
+            if index == 'cancel':
+                return
+            elif index.isdigit():
+                index = int(index)
+                break
+            else :
+                print("if you don't know the index first see all expenses for find it ".title())
+                continue
+        while True :
+            part = self.user_input("which thing you want edit [[1-Category],[2-Money][3-Description]]")
+            if part == 'cancel' :
+                return 
+            elif part in ['1','2','3'] :
+                break
+            else :
+                print("please give input only [1] or [2] or [3]".title())
+                continue
+        if part in ['1','3'] :
+            if part == '1':
+                part = "category"
+            else :
+                part = 'description'
+            changed = self.user_input("what to changed with :")
+        elif part == '2':
+            part = "Amount"
+            while True :
+                        changed = self.user_input("new amount : ",prefix="🤑")
+                        if changed == "cancel":
+                            return
+                        elif changed.isdigit():
+                            changed = int(changed)
+                            break
+                        elif not changed.isdigit() :
+                            print("Please Enter a valid amount ")
+                            continue
+        self.manager.update_expense(index,part,changed)
+        
+
 
     def start_app(self) :
         self.menu_dict = {1 : self.add_data,
@@ -133,7 +178,8 @@ class CLI_menu:
                           4 : self.get_all_expenses,
                           5 : self.get_total_expenses,
                           6 : self.expense_by_date,
-                          7 : self.total_expense_by_category}
+                          7 : self.total_expense_by_category,
+                          8 : self.update_expense}
         UIlen = len(max(self.menu_item,key=len))+10
         while True:
             print("\n")

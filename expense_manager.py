@@ -7,7 +7,8 @@
   4.  delete_expense(expense_index)
   5.  get_expenses_by_category(category_name)
   6.  get_expense_by_date(date)
-  7.  get_total_expense_by_category(category_name)'''
+  7.  get_total_expense_by_category(category_name)
+  8.  update_expense(index)'''
   
 # progect import
 import storage
@@ -87,5 +88,12 @@ class ExpenseManager:
             amount = [item["Amount"] for item in amount_list]
             return sum(amount),category_name
 
-
+    def update_expense(self,index,part,changed) -> bool:
+        for item in self.expense:
+            if item["index"] == index :
+                item[part] = changed
+                storage.save_data(self.expense)
+                return True
+            
+        return False
 
