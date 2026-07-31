@@ -27,8 +27,10 @@ class CLI_menu:
                 return "cancel"
             else :
                 return user_input
-    def UIprint(self,item) :
-        print(f"||   {item['index']}] {item['date']} | {item['category'].title()} | ₹{item['Amount']} - {item['description']}  ||")
+            
+    def UIprint(self,data_list) :
+        for item in data_list :
+            print(f"||   {item['index']}] {item['date']} | {item['category'].title()} | ₹{item['Amount']} - {item['description']}  ||")
             
     def add_data(self):
         category = self.user_input("which category did you spend your money : ").lower()
@@ -81,8 +83,7 @@ class CLI_menu:
             success = self.manager.get_expenses_by_category(category)
             if success:
                 print(f"\n✅ Expense Category {category} Here You GO!\n")
-                for item in success:
-                    self.UIprint(item)
+                self.UIprint(success)
             else:
                 print(f"❌ Failed to Fetch Category {category} not Available in the data")
 
@@ -98,8 +99,7 @@ class CLI_menu:
                     found = self.manager.get_expense_by_date(date)
                     if found :
                         print(f"\n✅ Expense on {date} Here You GO!\n")
-                        for item in found:
-                            self.UIprint(item)
+                        self.UIprint(found)
                     else:
                         print(f"❌ Failed to Fetch Not any expense on this  {date}")
             except ValueError :
@@ -113,8 +113,7 @@ class CLI_menu:
             print("NO DATA Available ##")
         else:
             print(f"\n✅ All Expense Here You GO!\n")
-            for item in data :
-                self.UIprint(item)
+            self.UIprint(data)
                 
     def get_total_expenses(self) :
         amount = self.manager.get_total_expenses()
