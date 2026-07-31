@@ -97,7 +97,10 @@ class ExpenseManager:
             
         return False
 
-    def CSV_export(self) -> list:
+    def CSV_export(self) -> str:
+        if not self.expense:
+            return ""
         header = self.expense[0].keys()
         body = [[item['date'],item['index'],item['Amount'],item['category'],item['description']] for item in self.expense]
-        return storage.export_to_csv(headerrow=header,bodyrow=body)
+        file_name = storage.export_to_csv(headerrow=header,bodyrow=body)
+        return file_name

@@ -27,12 +27,12 @@ def save_data(expense_list) -> bool :
         return True
 
     
-def export_to_csv(headerrow,bodyrow) -> bool:
+def export_to_csv(headerrow,bodyrow) -> str:
     try :
         with pathcsv.open("w",newline="",encoding="utf-8") as file:
             export = csv.writer(file)
             export.writerow(headerrow)
             export.writerows(bodyrow)
-        return True
+        return str(pathcsv)
     except Exception :
-        return False
+        return ""

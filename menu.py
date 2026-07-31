@@ -172,8 +172,11 @@ class CLI_menu:
         self.manager.update_expense(index,part,changed)
 
     def export_cvs(self):
-        return self.manager.CSV_export()
-
+        file_path = self.manager.CSV_export()
+        if file_path != "" :
+            print(f"JOB is done  here is the file location : {file_path}".title())
+        else :
+            print("Be messup some were".title())
 
     def start_app(self) :
         self.menu_dict = {1 : self.add_data,
