@@ -1,6 +1,7 @@
 #pycache file
 __pycache__/
 #json file
+*.csv
 *.json
 #test file
 notrelated-testcode.py

@@ -13,7 +13,8 @@ class CLI_menu:
                           "get total money spend on expenses",
                           "get_expense_by_date",
                           "get_total_expense_by_category",
-                          "update_expense"]
+                          "update_expense",
+                          "export to csv"]
         pass
 
     def user_input(self,prompt: str,prefix="") -> str:
@@ -169,7 +170,9 @@ class CLI_menu:
                             print("Please Enter a valid amount ")
                             continue
         self.manager.update_expense(index,part,changed)
-        
+
+    def export_cvs(self):
+        return self.manager.CSV_export()
 
 
     def start_app(self) :
@@ -180,7 +183,8 @@ class CLI_menu:
                           5 : self.get_total_expenses,
                           6 : self.expense_by_date,
                           7 : self.total_expense_by_category,
-                          8 : self.update_expense}
+                          8 : self.update_expense,
+                          9 : self.export_cvs}
         UIlen = len(max(self.menu_item,key=len))+10
         while True:
             print("\n")
