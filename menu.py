@@ -41,14 +41,11 @@ class CLI_menu:
             amount = self.user_input("how much money did you spend on it : ",prefix="🤑")
             if amount == "cancel":
                 return
-            elif amount < 0:
-                print("spending amount can't be zero".title())
-                continue
-            elif not amount.isdigit() :
-                print("Please Enter a valid amount ")
-                continue
-            else :
+            elif amount.isdigit() :
                 amount = int(amount)
+                break
+            else :
+                print("please give a valid amount")
                 break
         description = self.user_input("describe about where the spending gone : ")
         if  description == 'cancel':
