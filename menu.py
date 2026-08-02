@@ -58,9 +58,15 @@ class CLI_menu:
     
     def delete_data(self):
         while True:
-            index = self.user_input("enter the the index you want to delete \nif dont know the index first see all expense for be sure : ")
+            index = self.user_input("enter the the index you want to delete \nif dont know the index first see all expense for be sure : ",prefix="[all - to see all expenses , cat - to expenses by category ]").lower()
             if index == 'cancel':
                 return
+            elif index== "all":
+                self.get_all_expenses()
+                continue
+            elif index == 'cat':
+                self.expense_by_category()
+                continue
             elif index.isdigit(): 
                 index = int(index)
                 success = self.manager.delete_expense(index)
@@ -128,11 +134,17 @@ class CLI_menu:
             else :
                 print(f"\nthe total ₹{amount} till now you spent this category : {cat_name}!!🤯")
 
-    def update_expense(self) :
+    def update_expense(self,) :
         while True :
-            index = self.user_input("index of expense you want to edit : ")
+            index = self.user_input("index of expense you want to edit : ",prefix="[all - to see all expenses , cat - to expenses by category ]").lower()
             if index == 'cancel':
                 return
+            elif index== "all":
+                self.get_all_expenses()
+                continue
+            elif index == 'cat':
+                self.expense_by_category()
+                continue
             elif index.isdigit():
                 index = int(index)
                 break

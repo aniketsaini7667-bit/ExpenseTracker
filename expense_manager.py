@@ -28,7 +28,7 @@ class ExpenseManager:
     def get_date(self) -> str :
         self.date = datetime.datetime.now().strftime("%d-%m-%Y At %H:%M:%S")
         return self.date
-    
+
     @property
     def index_no(self) -> int:
         if not self.expense:
