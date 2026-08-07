@@ -5,3 +5,4 @@ __pycache__/
 *.json
 #test file
 notrelated-testcode.py
+testcode.py

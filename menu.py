@@ -58,7 +58,7 @@ class CLI_menu:
     
     def delete_data(self):
         while True:
-            index = self.user_input("enter the the index you want to delete \nif dont know the index first see all expense for be sure : ",prefix="[all - to see all expenses , cat - to expenses by category ]").lower()
+            index = self.user_input("enter the the index you want to delete if dont know the index first see all expense for be sure : ",prefix="\n[all - to see all expenses , cat - to expenses by category ]").lower()
             if index == 'cancel':
                 return
             elif index== "all":
