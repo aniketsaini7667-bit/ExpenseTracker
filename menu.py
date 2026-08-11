@@ -46,7 +46,7 @@ class CLI_menu:
                 break
             else :
                 print("please give a valid amount")
-                break
+                continue
         description = self.user_input("describe about where the spending gone : ")
         if  description == 'cancel':
             return
